@@ -96,3 +96,48 @@
 | `alert("메시지")` | 경고창 표시 | ```javascript<br>alert("작업이 완료되었습니다!");``` |
 | `confirm("메시지")` | 확인/취소 대화창 | ```javascript<br>var res = confirm("정말로 삭제하시겠습니까?");``` |
 | `trace("로그")` | 콘솔 로그 출력 | ```javascript<br>trace("현재 행 수: " + this.ds_user.getRowCount());``` |
+
+## 🧠 넥사크로 N 핵심 개념 요약
+
+| 🧩 개념 | 💬 설명 | 💡 핵심 포인트 / 예시 |
+|:--|:--|:--|
+| **Form (폼)** | 실제 화면(UI)을 구성하는 기본 단위 | - `.xfdl` 파일로 저장<br>- 버튼, 그리드, 에디트박스 등 배치<br>- 자바스크립트(`.xfdl.js`)로 로직 작성 |
+| **Dataset** | 화면/서버 간 데이터 교환용 구조체 (2차원 테이블) | - 엑셀처럼 행(Row), 열(Column) 구성<br>- `addRow()`, `setColumn()` 자주 사용 |
+| **Bind** | UI 컴포넌트와 Dataset의 특정 컬럼을 연결 | - 데이터 변경 시 자동 반영<br>```js\nBindItem("bind_id", objInput, "value", dsUser, "name");\n``` |
+| **Transaction** | 서버와 데이터 송수신을 담당하는 함수 | - 비동기 통신 지원<br>```js\ntransaction("getData", "svc::user.do", "", "dsUser=out_ds", "param=value", "fnCallback");\n``` |
+| **Script (JS)** | 폼 동작 로직 작성 (이벤트, 데이터 처리 등) | - 각 폼마다 JS 파일 존재 (`.xfdl.js`)<br>- 함수/이벤트 핸들러 정의 |
+| **Component (컴포넌트)** | 화면 구성요소 (Button, Grid, Combo 등) | - `Button00_onclick` 이벤트에서 자바스크립트 실행 |
+| **Event** | 사용자 동작(클릭, 변경, 로드 등)을 처리 | - `onload`, `onclick`, `onchanged` 등<br>```js\nthis.alert("클릭됨!");\n``` |
+| **Service (서비스)** | 서버 통신 URL, 경로, 프로토콜 설정 | - `Environment`의 Services 영역에서 관리<br>예: `svc:: = http://localhost:8080/service/` |
+| **Application Variables** | 앱 전체에서 공유되는 전역 변수/데이터셋 | - `application.g_userName` 식으로 접근 |
+| **Popup (팝업폼)** | 새 창을 띄워 추가 화면 표시 | ```js\nthis.open("popup01", "PopupForm.xfdl", this, null, null, 400, 300);\n``` |
+| **FrameSet / ChildFrame** | 메인 프레임 구조 정의 (화면 전환용) | - TopFrame, LeftFrame, MainFrame 등 구조화 |
+| **Theme / CSS** | 화면 스타일(색상, 글꼴 등)을 관리 | - `.xtheme` 파일로 디자인 일괄 변경 |
+| **DeviceAdapter** | 모바일 기기 기능(GPS, 카메라 등)과 연동 | - `nexacro.Device.currentlocation` 등 사용 |
+| **File Upload / Download** | 서버로 파일 업로드 또는 내려받기 기능 | - `FileUpload`, `FileDownload` 컴포넌트 사용 |
+| **Grid** | 데이터셋을 표 형태로 보여주는 컴포넌트 | - `bindDataset` 속성에 Dataset 지정<br>- 정렬, 합계, 필터링 지원 |
+
+---
+
+## ⚙️ 넥사크로 개발 흐름 정리
+
+| 단계 | 설명 | 예시 |
+|:--|:--|:--|
+| 1️⃣ Form 설계 | `.xfdl` 파일에서 UI 구성 | 버튼, 그리드, 에디트박스 배치 |
+| 2️⃣ Dataset 생성 | 데이터 구조 정의 | `dsUser` (id, name, age 등) |
+| 3️⃣ Script 작성 | 이벤트, 데이터 로직 구현 | `Button00_onclick → transaction 호출` |
+| 4️⃣ Transaction 호출 | 서버 데이터 연동 | `svc::getUserList.do` 호출 |
+| 5️⃣ Bind 연결 | Dataset ↔ UI 자동 동기화 | `BindItem` 설정 |
+| 6️⃣ Application 관리 | 전역 변수/데이터 관리 | `application.g_userInfo` |
+| 7️⃣ 배포/빌드 | 톰캣 등 웹 서버에 올려 실행 | `http://localhost:8080/nexa/` 접속 |
+
+---
+
+## 🧰 자주 쓰는 전역 객체
+
+| 객체 | 설명 | 예시 코드 |
+|:--|:--|:--|
+| `application` | 전역 앱 객체 | `application.g_userId` |
+| `this` | 현재 Form 객체 | `this.alert("Hi");` |
+| `nexacro` | 넥사크로 전역 API | `nexacro.getApplication();` |
+| `system` | OS 관련 기능 | `system.openURL("http://...");` |
