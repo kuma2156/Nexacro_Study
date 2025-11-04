@@ -131,6 +131,11 @@
 | 6️⃣ Application 관리 | 전역 변수/데이터 관리 | `application.g_userInfo` |
 | 7️⃣ 배포/빌드 | 톰캣 등 웹 서버에 올려 실행 | `http://localhost:8080/nexa/` 접속 |
 
+
+## 넥사크로 개발 흐름 그림
+<img width="1024" height="1024" alt="image" src="https://github.com/user-attachments/assets/fb967c3f-9c80-4c83-9e9a-4376aa7ffdda" />
+
+
 ---
 
 ## 🧰 자주 쓰는 전역 객체
