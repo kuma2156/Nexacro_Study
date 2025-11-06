@@ -151,3 +151,15 @@
 | `this` | 현재 Form 객체 | `this.alert("Hi");` |
 | `nexacro` | 넥사크로 전역 API | `nexacro.getApplication();` |
 | `system` | OS 관련 기능 | `system.openURL("http://...");` |
+
+
+
+
+## 콤보박스
+| 항목           | 역할                | 예시값                   |
+| ------------ | ----------------- | --------------------- |
+| innerdataset | 콤보박스의 데이터 원본      | ds_grade              |
+| codecolumn   | 실제 저장되는 코드값       | “A”, “B”, “C”         |
+| datacolumn   | 사용자에게 표시될 값       | “관리자”, “일반사용자”        |
+| Dataset 구조   | ColumnInfo + Rows | code, name            |
+| value/text   | 콤보 선택 결과          | value=“A”, text=“관리자” |
