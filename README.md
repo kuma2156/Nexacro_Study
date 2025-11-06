@@ -25,15 +25,29 @@
 
 ## 📘 Dataset 관련 함수
 
-| 함수 | 설명 | 예시 코드 |
-|:---|:---|:---|
-| `addRow()` | 새 행 추가 | ```javascript<br>this.ds_user.addRow();``` |
-| `deleteRow(nRow)` | 특정 행 삭제 | ```javascript<br>this.ds_user.deleteRow(0);``` |
-| `getColumn(nRow, "컬럼명")` | 특정 행의 컬럼값 가져오기 | ```javascript<br>var name = this.ds_user.getColumn(0, "name");``` |
-| `setColumn(nRow, "컬럼명", value)` | 특정 행의 컬럼값 설정 | ```javascript<br>this.ds_user.setColumn(0, "age", 25);``` |
-| `getRowCount()` | 전체 행 수 반환 | ```javascript<br>trace("행 개수: " + this.ds_user.getRowCount());``` |
-| `findRow("컬럼명", value)` | 조건에 맞는 행 인덱스 찾기 | ```javascript<br>var row = this.ds_user.findRow("user_id", "kim123");``` |
-| `clearData()` | 모든 데이터 초기화 | ```javascript<br>this.ds_user.clearData();``` |
+| 함수                               | 설명                | 예시                                |
+| -------------------------------- | ----------------- | --------------------------------- |
+| **addRow()**                     | 마지막에 행 추가         | `var nRow = ds.addRow();`         |
+| **insertRow(n)**                 | n번째 위치에 행 삽입      | `ds.insertRow(0);`                |
+| **deleteRow(n)**                 | n번째 행 삭제          | `ds.deleteRow(1);`                |
+| **clearData()**                  | 데이터만 초기화(컬럼 유지)   | `ds.clearData();`                 |
+| **getColumn(row, colid)**        | 값 읽기              | `ds.getColumn(0, "name");`        |
+| **setColumn(row, colid, value)** | 값 수정              | `ds.setColumn(0, "age", 29);`     |
+| **getRowCount()**                | 총 행 수             | `ds.rowcount;`                    |
+| **filter(expr)**                 | 조건에 맞는 행만 표시      | `ds.filter("age >= 30");`         |
+| **set_keystring()**              | 정렬 설정             | `ds.set_keystring("S:+age");`     |
+| **copyData(ds2)**                | 다른 Dataset 데이터 복사 | `ds2.copyData(ds1);`              |
+| **getCaseCount(type)**           | 변경된 행 수           | `ds.getCaseCount("U")` (업데이트된 행만) |
+
+## Dataset의 “상태(STATE)” 구조
+
+| 상태     | 의미     | 코드 | 서버전송 여부 |
+| ------ | ------ | -- | ------- |
+| NORMAL | 수정 없음  | 0  | ❌       |
+| INSERT | 새로 추가됨 | 2  | ✅       |
+| UPDATE | 수정됨    | 4  | ✅       |
+| DELETE | 삭제됨    | 8  | ✅       |
+
 
 ---
 
@@ -45,6 +59,54 @@
 | `fnCallback(trId, errCd, errMsg)` | 통신 완료 후 콜백 함수 | ```javascript<br>this.fnCallback = function(trId, errCd, errMsg){<br> if (errCd < 0) alert("오류: " + errMsg);<br> else alert("데이터 수신 완료!");<br>};``` |
 
 ---
+
+### 실무에서 자주보는 코드
+```
+if (this.ds_main.getCaseCount("U") > 0 || this.ds_main.getCaseCount("I") > 0)
+{
+    this.fnSave(); // 변경된 데이터 있을 때만 저장
+}
+```
+
+## 그리드
+### 그리드 내부구조
+| 영역      | 의미             | 예시       |
+| ------- | -------------- | -------- |
+| Head    | 컬럼 제목 (필드명)    | 이름, 나이   |
+| Body    | 실제 데이터 셀       | 홍길동, 28  |
+| Summary | 합계, 평균 등 하단 요약 | 총합계: ... |
+
+### 그리드의 주요속성
+| 속성                 | 설명                                | 예시                             |
+| ------------------ | --------------------------------- | ------------------------------ |
+| **autofittype**    | 칸 자동 크기 조정                        | `"col"`, `"row"`, `"col, row"` |
+| **autosizingtype** | 내용에 따라 크기 조정                      | `"both"`                       |
+| **displaytype**    | 셀 표시 형식 (text, combo, checkbox 등) | `"combo"`                      |
+| **edittype**       | 편집 가능 여부                          | `"text"`, `"none"`             |
+| **binddataset**    | 연결할 Dataset 지정                    | `"ds_main"`                    |
+
+### 그리드의 이벤트
+| 이벤트                | 발생 시점    | 예시          |
+| ------------------ | -------- | ----------- |
+| **onheadclick**    | 헤더 클릭 시  | 정렬 토글 구현    |
+| **oncelldblclick** | 셀 더블클릭   | 상세 팝업 열기    |
+| **oncellclick**    | 셀 클릭     | 특정 로직 실행    |
+| **onkeydown**      | 키보드 입력   | 엔터로 다음 행 이동 |
+| **oneditclick**    | 편집 모드 진입 | 입력 유효성 검사   |
+
+## 실무에서 꼭 외워야할 포인트
+| 구분         | 꼭 외워야 할 포인트                          |
+| ---------- | ------------------------------------ |
+| Dataset 기본 | Row, Column, Cell 구조                 |
+| 데이터 조작     | addRow, setColumn, filter, clearData |
+| 상태값        | NORMAL / INSERT / UPDATE / DELETE    |
+| Grid 연동    | binddataset으로 자동 연결                  |
+| 양방향 바인딩    | Grid 수정 = Dataset 변경                 |
+| 콤보 연동      | displaytype="combo" + combodataset   |
+| 서버 전송      | 변경 상태 행만 전송됨                         |
+| 데이터 갱신     | Grid ↔ Dataset 자동 동기화                |
+| 실무 핵심      | 트랜잭션(gfn_ServiceCall) 구조 이해          |
+
 
 ## 🧩 Form 관련 함수
 
