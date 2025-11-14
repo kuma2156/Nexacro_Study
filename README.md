@@ -262,19 +262,7 @@
 | gfn_GridColArea      | Column 우클릭 팝업 메뉴    | 필터/정렬 메뉴                             |
 
 
-좋아!
-**Naming Rule 전체를 “표 형식 + 설명 + 예시”**로 실무에서 바로 쓸 수 있게 정리해줄게.
-범위는 다음 3개 전체 포함:
-
-✔ **Front-End (Nexacro)**
-✔ **Back-End (Java / Mapper / Service / Controller)**
-✔ **Dataset / Column / Component / Function Rule**
-
----
-
 # ✅ **📌 Nexacro & Back-End Naming Rule — 전체 표 정리**
-
----
 
 # 1️⃣ **화면(FORM) Naming Rule**
 
