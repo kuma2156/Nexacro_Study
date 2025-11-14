@@ -225,3 +225,66 @@ if (this.ds_main.getCaseCount("U") > 0 || this.ds_main.getCaseCount("I") > 0)
 | datacolumn   | 사용자에게 표시될 값       | “관리자”, “일반사용자”        |
 | Dataset 구조   | ColumnInfo + Rows | code, name            |
 | value/text   | 콤보 선택 결과          | value=“A”, text=“관리자” |
+
+
+## 데이터셋 기본함수
+| 함수                             | 설명             | 예시                                       |
+| ------------------------------ | -------------- | ---------------------------------------- |
+| `setColumn(row, colid, value)` | 특정 셀 값 설정      | `ds.setColumn(0, "NAME", "홍길동");`        |
+| `getColumn(row, colid)`        | 특정 셀 값 가져오기    | `var name = ds.getColumn(1, "NAME");`    |
+| `addRow()`                     | 맨 뒤에 행 추가      | `var r = ds.addRow();`                   |
+| `insertRow(row)`               | 특정 위치에 행 삽입    | `ds.insertRow(2);`                       |
+| `deleteRow(row)`               | 해당 행 삭제        | `ds.deleteRow(0);`                       |
+| `clearData()`                  | 데이터만 삭제        | `ds.clearData();`                        |
+| `clear()`                      | 데이터 + 컬럼 모두 삭제 | `ds.clear();`                            |
+| `rowcount`                     | 전체 행 개수        | `trace(ds.rowcount);`                    |
+| `filter(expr)`                 | 조건 필터링         | `ds.filter("AGE >= 30");`                |
+| `sort(expr)`                   | 정렬             | `ds.sort("NAME ASC");`                   |
+| `findRow(col, value)`          | 해당 값 첫 번째 찾기   | `var r = ds.findRow("USER_ID", "1001");` |
+| `findRowExpr(expr)`            | 조건식으로 찾기       | `ds.findRowExpr("AGE > 40");`            |
+| `getRowType(row)`              | ROWTYPE 확인     | `ds.getRowType(0); // 2: Insert`         |
+
+
+## Component(Edit/Combo/Calendar 등) 기본 함수
+| 함수                         | 설명            | 예시                            |
+| -------------------------- | ------------- | ----------------------------- |
+| `set_value(value)`         | 값 설정          | `edtName.set_value("홍길동");`   |
+| `value`                    | 값 가져오기        | `var v = edtName.value;`      |
+| `text`                     | 표시 텍스트 가져오기   | `var t = edtSearch.text;`     |
+| `setFocus()`               | 포커스 이동        | `edtName.setFocus();`         |
+| `set_enable(true/false)`   | 활성/비활성        | `cmbType.set_enable(false);`  |
+| `set_readonly(true/false)` | 읽기 전용         | `edtName.set_readonly(true);` |
+| `set_visible(true/false)`  | 보이기/숨기기       | `btnSave.set_visible(false);` |
+| `set_index(i)`             | 콤보박스 index 변경 | `cmbType.set_index(1);`       |
+| `getText()`                | 컴포넌트 문자열      | `var s = edtName.getText();`  |
+
+## 그리드 기본함수
+| 함수                            | 설명          | 예시                                |
+| ----------------------------- | ----------- | --------------------------------- |
+| `getCellPos()`                | 현재 셀 위치     | `var pos = grd.getCellPos();`     |
+| `setCellPos(col)`             | 특정 컬럼으로 이동  | `grd.setCellPos(1);`              |
+| `setFocus()`                  | 그리드에 포커스    | `grd.setFocus();`                 |
+| `showEditor(true)`            | 셀 편집기 강제 열기 | `grd.showEditor(true);`           |
+| `getCellValue(row, colid)`    | 셀 값 가져오기    | `grd.getCellValue(0, "NAME");`    |
+| `setCellValue(row, colid, v)` | 셀 값 변경      | `grd.setCellValue(2, "AGE", 30);` |
+| `selectRow(row)`              | 해당 row 선택   | `grd.selectRow(3);`               |
+| `isSelectRow(row)`            | 선택 여부       | `grd.isSelectRow(1);`             |
+
+## 폼 전역함
+| 함수                 | 설명       | 예시                      |
+| ------------------ | -------- | ----------------------- |
+| `alert(msg)`       | 알림 메시지   | `alert("저장 완료");`       |
+| `confirm(msg)`     | 예/아니오    | `confirm("삭제하시겠습니까?");` |
+| `trace(msg)`       | 콘솔 출력    | `trace("LOG");`         |
+| `transaction(...)` | 서버 통신 실행 | *(아래 예시)*               |
+
+
+## 문자열 / 유틸
+| 함수                      | 설명     | 예시                            |
+| ----------------------- | ------ | ----------------------------- |
+| `nexacro.trim(str)`     | 공백 제거  | `nexacro.trim(" a ")`         |
+| `nexacro.toNumber(str)` | 숫자로 변환 | `nexacro.toNumber("00123")`   |
+| `nexacro.toDate(str)`   | 날짜형 변환 | `nexacro.toDate("20250101")`  |
+| `isEmpty(str)` (직접 구현)  | 빈문자 체크 | `if (this.gfn_isEmpty(v)) {}` |
+
+
