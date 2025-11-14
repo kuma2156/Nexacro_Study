@@ -270,7 +270,7 @@ if (this.ds_main.getCaseCount("U") > 0 || this.ds_main.getCaseCount("I") > 0)
 | `selectRow(row)`              | 해당 row 선택   | `grd.selectRow(3);`               |
 | `isSelectRow(row)`            | 선택 여부       | `grd.isSelectRow(1);`             |
 
-## 폼 전역함
+## 폼 전역함수
 | 함수                 | 설명       | 예시                      |
 | ------------------ | -------- | ----------------------- |
 | `alert(msg)`       | 알림 메시지   | `alert("저장 완료");`       |
