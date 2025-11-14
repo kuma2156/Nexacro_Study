@@ -107,16 +107,6 @@ if (this.ds_main.getCaseCount("U") > 0 || this.ds_main.getCaseCount("I") > 0)
 | 데이터 갱신     | Grid ↔ Dataset 자동 동기화                |
 | 실무 핵심      | 트랜잭션(gfn_ServiceCall) 구조 이해          |
 
-
-## 🧩 Form 관련 함수
-
-| 함수 | 설명 | 예시 코드 |
-|:---|:---|:---|
-| `close()` | 현재 폼 닫기 | ```javascript<br>this.close();``` |
-| `reload()` | 폼 새로고침 | ```javascript<br>this.reload();``` |
-| `setFocus(obj)` | 특정 컴포넌트에 포커스 설정 | ```javascript<br>this.setFocus(this.edt_name);``` |
-| `lookup("컴포넌트ID")` | 컴포넌트 찾기 | ```javascript<br>var btn = this.lookup("btn_save");``` |
-
 ---
 
 ## 🏠 Application (전역 제어)
@@ -126,18 +116,6 @@ if (this.ds_main.getCaseCount("U") > 0 || this.ds_main.getCaseCount("I") > 0)
 | `nexacro.getApplication()` | 현재 실행 중인 앱 객체 가져오기 | ```javascript<br>var app = nexacro.getApplication();``` |
 | `app.lookup("컴포넌트ID")` | 다른 폼의 컴포넌트 접근 | ```javascript<br>var loginForm = app.mainframe.VFrameSet.HFrameSet.form;<br>loginForm.btn_login.set_enable(false);``` |
 | `app.exit()` | 애플리케이션 종료 | ```javascript<br>app.exit();``` |
-
----
-
-## 🎨 컴포넌트 제어 함수
-
-| 함수 | 설명 | 예시 코드 |
-|:---|:---|:---|
-| `set_visible(true/false)` | 표시/숨김 제어 | ```javascript<br>this.btn_submit.set_visible(true);``` |
-| `set_enable(true/false)` | 활성/비활성 제어 | ```javascript<br>this.btn_submit.set_enable(false);``` |
-| `set_text("텍스트")` | 텍스트 변경 | ```javascript<br>this.st_title.set_text("회원 정보");``` |
-| `set_value(value)` | 값 설정 | ```javascript<br>this.edt_name.set_value("김명규");``` |
-| `get_value()` | 현재 값 가져오기 | ```javascript<br>var name = this.edt_name.get_value();``` |
 
 ---
 
@@ -194,15 +172,6 @@ if (this.ds_main.getCaseCount("U") > 0 || this.ds_main.getCaseCount("I") > 0)
 | 7️⃣ 배포/빌드 | 톰캣 등 웹 서버에 올려 실행 | `http://localhost:8080/nexa/` 접속 |
 
 
-## 넥사크로 개발 흐름 그림
-<img width="1024" height="1024" alt="image" src="https://github.com/user-attachments/assets/fb967c3f-9c80-4c83-9e9a-4376aa7ffdda" />
-
-| 분류                | 설명                                             |
-| ----------------- | ---------------------------------------------- |
-| **초록색 그룹 (UI)**   | 사용자가 실제로 눈으로 보는 부분 (화면 구성, 이벤트 처리)             |
-| **주황색 그룹 (Data)** | 서버와 주고받는 데이터 흐름 (Dataset에 담고 Transaction으로 전송) |
-
-
 ---
 
 ## 🧰 자주 쓰는 전역 객체
@@ -213,8 +182,6 @@ if (this.ds_main.getCaseCount("U") > 0 || this.ds_main.getCaseCount("I") > 0)
 | `this` | 현재 Form 객체 | `this.alert("Hi");` |
 | `nexacro` | 넥사크로 전역 API | `nexacro.getApplication();` |
 | `system` | OS 관련 기능 | `system.openURL("http://...");` |
-
-
 
 
 ## 콤보박스
@@ -258,6 +225,14 @@ if (this.ds_main.getCaseCount("U") > 0 || this.ds_main.getCaseCount("I") > 0)
 | `set_index(i)`             | 콤보박스 index 변경 | `cmbType.set_index(1);`       |
 | `getText()`                | 컴포넌트 문자열      | `var s = edtName.getText();`  |
 
+| 함수 | 설명 | 예시 코드 |
+|:---|:---|:---|
+| `set_visible(true/false)` | 표시/숨김 제어 | ```javascript<br>this.btn_submit.set_visible(true);``` |
+| `set_enable(true/false)` | 활성/비활성 제어 | ```javascript<br>this.btn_submit.set_enable(false);``` |
+| `set_text("텍스트")` | 텍스트 변경 | ```javascript<br>this.st_title.set_text("회원 정보");``` |
+| `set_value(value)` | 값 설정 | ```javascript<br>this.edt_name.set_value("김명규");``` |
+| `get_value()` | 현재 값 가져오기 | ```javascript<br>var name = this.edt_name.get_value();``` |
+
 ## 그리드 기본함수
 | 함수                            | 설명          | 예시                                |
 | ----------------------------- | ----------- | --------------------------------- |
@@ -277,6 +252,15 @@ if (this.ds_main.getCaseCount("U") > 0 || this.ds_main.getCaseCount("I") > 0)
 | `confirm(msg)`     | 예/아니오    | `confirm("삭제하시겠습니까?");` |
 | `trace(msg)`       | 콘솔 출력    | `trace("LOG");`         |
 | `transaction(...)` | 서버 통신 실행 | *(아래 예시)*               |
+
+
+| 함수 | 설명 | 예시 코드 |
+|:---|:---|:---|
+| `close()` | 현재 폼 닫기 | ```javascript<br>this.close();``` |
+| `reload()` | 폼 새로고침 | ```javascript<br>this.reload();``` |
+| `setFocus(obj)` | 특정 컴포넌트에 포커스 설정 | ```javascript<br>this.setFocus(this.edt_name);``` |
+| `lookup("컴포넌트ID")` | 컴포넌트 찾기 | ```javascript<br>var btn = this.lookup("btn_save");``` |
+
 
 
 ## 문자열 / 유틸
